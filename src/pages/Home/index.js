@@ -1,15 +1,26 @@
 import "./home.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../../fireBaseConnections";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
     if (email !== "" && senha !== "") {
+      await signInWithEmailAndPassword(auth, email, senha)
+        .then(() => {
+          navigate("/admin", { replace: true });
+        })
+        .catch((error) => {
+          alert("Erro ao fazer login" + error);
+        });
       setEmail("");
       setSenha("");
     } else {
