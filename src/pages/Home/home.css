@@ -38,7 +38,17 @@
     background-color: #3366ff;
     color: #fff;
     font-size: 18px;
+    transition: all .2s;
 }
+
+.form button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(218, 217, 217, 0.3);
+  }
+  
+.form button:active {
+    background-color: #15171a;
+  }
 
 .form textarea{
     margin-bottom: 12px;
@@ -57,3 +67,4 @@
 .btn-link:hover{
     color: #3366ff;
 }
+
