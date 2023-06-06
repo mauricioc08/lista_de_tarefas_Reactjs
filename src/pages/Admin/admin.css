@@ -33,14 +33,17 @@
 
 .list button{
     margin-right: 8px;
-    border: 0;
     border-radius: 4px;
     padding: 4px;
+    border: 1px solid transparent;
 }
 
 .btn-delete{
-    color: #ffcc23;
     background-color: transparent;
+    color: #ffcc23;
+}
+.btn-delete:hover{
+    border: solid 1px #3366ff;
 }
 
 .btn-logout{

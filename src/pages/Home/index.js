@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState(false);
   const navigate = useNavigate();
 
   async function handleLogin(e) {
@@ -19,7 +20,11 @@ const Home = () => {
           navigate("/admin", { replace: true });
         })
         .catch((error) => {
-          alert("Erro ao fazer login" + error);
+          if (error.code === "auth/user-not-found") {
+            setErro(true);
+          } else if (error.code === "auth/wrong-password") {
+            setErro(true);
+          }
         });
       setEmail("");
       setSenha("");
@@ -31,7 +36,11 @@ const Home = () => {
   return (
     <div className="home-container">
       <h1>Lista de Tarefas</h1>
-      <span>Gerencie sua agenda de forma fácil.</span>
+      {erro ? (
+        <span className="erroSpan">Usuário ou Senha Inválidos!</span>
+      ) : (
+        <span>Gerencie sua agenda de forma fácil.</span>
+      )}
 
       <form className="form" onSubmit={handleLogin}>
         <input

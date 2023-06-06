@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState(false);
   const navigate = useNavigate();
 
   async function handleRegister(e) {
@@ -20,6 +21,9 @@ const Register = () => {
         })
         .catch((error) => {
           console.log("Erro ao fazer cadastro" + error);
+          if (error.code === "auth/email-already-in-use") {
+            setErro(true);
+          }
         });
       setEmail("");
       setSenha("");
@@ -31,7 +35,11 @@ const Register = () => {
   return (
     <div className="home-container">
       <h1>Cadastre-se</h1>
-      <span>Vamos criar sua conta!</span>
+      {erro ? (
+        <span className="erroSpan">Usuário Já Cadastrado!</span>
+      ) : (
+        <span>Vamos criar sua conta!</span>
+      )}
 
       <form className="form" onSubmit={handleRegister}>
         <input
