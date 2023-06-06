@@ -16,3 +16,26 @@ button{
     cursor: pointer;
 }
 
+.load{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.loading {
+    animation: is-rotating 1s infinite;
+    border: 5px solid #3366ff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    height: 50px;
+    width: 50px;
+  }
+  
+  @keyframes is-rotating {
+    to {
+      transform: rotate(1turn);
+    }
+  }
