@@ -1,14 +1,39 @@
 import "./admin.css";
-import React, { useState } from "react";
-import { auth } from "../../fireBaseConnections";
+import React, { useEffect, useState } from "react";
+import { auth, db } from "../../fireBaseConnections";
 import { signOut } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 const Admin = () => {
   const [tarefaInput, setTarefaInput] = useState("");
+  const [user, setUser] = useState({});
 
-  function handleRegister(e) {
+  useEffect(() => {
+    async function loadTarefas() {
+      const userDetail = localStorage.getItem("@detailUser");
+      setUser(JSON.parse(userDetail));
+    }
+    loadTarefas();
+  }, []);
+
+  async function handleRegister(e) {
     e.preventDefault();
-    alert("clicouuuu");
+    if (tarefaInput === "") {
+      alert("Digite sua tarefa...");
+      return;
+    }
+
+    await addDoc(collection(db, "tarefas"), {
+      tarefa: tarefaInput,
+      created: new Date(),
+      userUid: user?.uid,
+    })
+      .then(() => {
+        setTarefaInput("");
+      })
+      .catch((error) => {
+        console.log("Erro ao registrar" + error);
+      });
   }
 
   async function handleLogout() {
@@ -30,9 +55,7 @@ const Admin = () => {
       </form>
 
       <article className="list">
-        <p>
-          cbhdscbhsdcbodcnkqcnbnvcqpçojwojddddddddddddddddddddddddddddddddddddddddo
-        </p>
+        <p>fvgergrgergrvvd</p>
         <div>
           <button>Editar</button>
           <button className="btn-delete">Concluir</button>
