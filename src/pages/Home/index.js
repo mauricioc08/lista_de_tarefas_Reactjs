@@ -1,7 +1,49 @@
-import React from "react";
+import "./home.css";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  return <h1>Pagina Home</h1>;
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  function handleLogin(e) {
+    e.preventDefault();
+
+    if (email !== "" && senha !== "") {
+      setEmail("");
+      setSenha("");
+    } else {
+      alert("Preencha todos os campos!");
+    }
+  }
+
+  return (
+    <div className="home-container">
+      <h1>Lista de Tarefas</h1>
+      <span>Gerencie sua agenda de forma fácil.</span>
+
+      <form className="form" onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          minLength="6"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+        />
+        <button type="submit">Acessar</button>
+      </form>
+
+      <Link className="btn-link" to="/register">
+        Não possui uma conta? Cadastre-se
+      </Link>
+    </div>
+  );
 };
 
 export default Home;
