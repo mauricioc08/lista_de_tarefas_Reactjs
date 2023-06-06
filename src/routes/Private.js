@@ -29,7 +29,11 @@ const Private = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Carregando...</div>;
+    return (
+      <div className="load">
+        <div className="loading"></div>
+      </div>
+    );
   }
 
   if (!signed) {
