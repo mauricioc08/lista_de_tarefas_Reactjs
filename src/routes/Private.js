@@ -12,7 +12,7 @@ const Private = ({ children }) => {
       const unsub = onAuthStateChanged(auth, (user) => {
         if (user) {
           const userData = {
-            uid: user.displayName,
+            uid: user.uid,
             email: user.email,
           };
           localStorage.setItem("@detailUser", JSON.stringify(userData));
